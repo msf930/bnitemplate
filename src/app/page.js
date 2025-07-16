@@ -14,6 +14,9 @@ import { SanityDocument } from "next-sanity";
 import { client } from "../sanity/lib/client";
 import MemberCard from "./components/MemberCard";
 import Link from "next/link";
+import Particles from "react-tsparticles";
+import  { Engine } from "tsparticles-engine";
+import { loadTrianglesPreset } from "tsparticles-preset-triangles";
 
 const MEMBERS_QUERY = `*[
   _type == "member"
@@ -44,6 +47,53 @@ export default function Home() {
     });
   }, []);
 
+  const [buttonVisible, setButtonVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in after 1 second
+    const timeout = setTimeout(() => {
+      setButtonVisible(true);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const particlesInit = async (Engine) => {
+    await loadTrianglesPreset(Engine);
+  };
+
+  // Particle options for stars
+  const particlesOptions = {
+    preset: "triangles",
+    background: { color: "transparent" },
+    fullScreen: false,
+    particles: {
+      number: {
+        value: 80,
+        density: {
+          enable: true,
+        },
+      },
+      links: {
+        distance: 125,
+        enable: true,
+        triangles: {
+          enable: true,
+          opacity: 1
+        }
+      },
+      shape: {
+        type: "circle",
+      },
+      // color: { value: "#ffffff" },
+      color: { value: "#CF2030B3" },
+      opacity: { value: 1.0 },
+      size: { value: 1.2 },
+      move: { enable: true, speed: 0.3 },
+    },
+    style: { position: 'absolute', top: 0, left: 0, zIndex: 1000, pointerEvents: 'none' },
+  };
+
+
   return (
     <AnimatePresence>
       <motion.div
@@ -55,6 +105,10 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden pageAll">
           <Nav />
           <div id="home" className="heroCont">
+            <div className="heroContBg"></div>
+            <div className="heroContParticles">
+              <Particles id="tsparticles-hero" init={particlesInit} options={particlesOptions} />
+            </div>
             <motion.h1
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -71,18 +125,35 @@ export default function Home() {
               className="heroSubText">
               Expand your network with purpose.<br />Grow your business through real relationships.
             </motion.p>
-            <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonContainer">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.2, delay: 0.9 }}
-                viewport={{ once: true }}
-                className="heroButton"
+
+            <div className={`heroButtonGlass transition-opacity duration-1000 ease-linear ${buttonVisible ? 'opacity-100' : 'opacity-0'}`} >
+              <LiquidGlass
+                displacementScale={100}
+                blurAmount={0.7}
+                saturation={100}
+                aberrationIntensity={2}
+                elasticity={0.1}
+                cornerRadius={32}
+                mode="shader"
+                overLight={false}
+                style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 20 }}
               >
-                Visit Our Chapter
-              </motion.div>
-            </Link>
-            
+                <Link
+                  // href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
+                  href="https://www.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ zIndex: 20 }}
+
+                >
+
+                  Visit Our Chapter
+
+                </Link>
+              </LiquidGlass>
+            </div>
+
+
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,11 +161,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="heroRiveContainer"
             >
-              <div className="w-[100%] h-[100%] cursor-pointer z-10">
+              <div className="w-[100%] h-[100%] z-10">
                 <RiveComponent />
               </div>
             </motion.div>
-            
+
           </div>
           <div id="about" className="flex flex-col items-center justify-center w-[100%] aboutSection">
             <div className="flex flex-row items-center justify-center w-full gap-10 ">
@@ -103,14 +174,26 @@ export default function Home() {
                   <div className="aboutHandshakeContainer">
                     <Image src="/handshake.jpg" alt="logo" fill objectFit="cover" className="aboutHandshake" />
                   </div>
-                  <div className="aboutMemberBox absolute bottom-6 right-6 flex flex-col items-center justify-center gap-2">
-                    <div className="flex flex-row items-center justify-center gap-2">
-                      <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
-                      <p className="aboutMemberText">{members.length}<br /></p>
-                    </div>
+                    <LiquidGlass
+                       displacementScale={20}
+                       blurAmount={0.02}
+                       saturation={120}
+                       aberrationIntensity={2}
+                       elasticity={0.1}
+                       cornerRadius={50}
+                       mode="shader"
+                       overLight={true}
+                      style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 30 }}
+                    >
+                  <div className="aboutMemberBox ">
+                      <div className="flex flex-row items-center justify-center gap-2">
+                        <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
+                        <p className="aboutMemberText">{members.length}<br /></p>
+                      </div>
 
-                    <p className="aboutMemberText">members</p>
+                      <p className="aboutMemberText">members</p>
                   </div>
+                    </LiquidGlass>
                 </div>
               </div>
               <div className="aboutRight flex flex-col items-center justify-center text-left w-[40%] gap-4">
@@ -118,7 +201,27 @@ export default function Home() {
                 <p className="text-lg font-light w-[100%]">Real connections. Tangible results.</p>
                 <p className="text-lg w-[100%]">Whether you&apos;re a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don&apos;t just meet people &mdash; you build lasting partnerships.</p>
                 <div className="aboutButtonContainer">
-                  <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="aboutButton">Visit Our Chapter</Link>
+                <LiquidGlass
+                       displacementScale={20}
+                       blurAmount={0.05}
+                       saturation={100}
+                       aberrationIntensity={2}
+                       elasticity={0.1}
+                       cornerRadius={32}
+                       mode="shader"
+                       overLight={false}
+                      style={{ position: 'absolute', top: '50%', left: '20%', transform: 'translate(-50%, -50%)', zIndex: 30 }}
+                    >
+               
+                  <Link 
+                  // href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" 
+                  href="https://www.google.com"
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="aboutButton">
+                    Schedule A Visit
+                    </Link>
+                </LiquidGlass>
                 </div>
               </div>
             </div>
@@ -157,9 +260,9 @@ export default function Home() {
               <div className="footerCenter flex flex-col items-center justify-center w-1/3 gap-4">
                 <h3 className="text-xl font-semibold">Contact Us</h3>
                 <div className="flex flex-col items-center gap-2 text-gray-700">
-                  <p>Email: info@bni360.com</p>
+                  <p>Email: info@gmail.com</p>
                   <p>Phone: (555) 123-4567</p>
-                  <p>Location: Thornton, CO</p>
+                  {/* <p>Location: Thornton, CO</p> */}
                 </div>
               </div>
               <div className="footerRight flex flex-col items-end justify-center w-1/3 gap-4">
@@ -174,7 +277,8 @@ export default function Home() {
             <div className="flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-gray-700">
               <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-gray-700 text-sm">BNI 360</Link>
               <a
-                href="https://servaldesigns.com"
+                // href="https://servaldesigns.com"
+                href="https://www.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-700 hover:text-white transition-colors text-sm"

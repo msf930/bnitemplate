@@ -84,7 +84,12 @@ export default function Nav() {
                     >Members</button>
                 </div>
                 <div className="flex justify-end items-center">
-                    <Link href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" target="_blank" rel="noopener noreferrer" className="cursor-pointer text-[#CF2030] flex justify-center items-center group">
+                    <Link 
+                    // href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" 
+                    href="https://www.google.com"
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="cursor-pointer text-[#CF2030] flex justify-center items-center group">
                         Official BNI Page
                         <div className="text-[#CF2030] text-4xl cursor-pointer pb-1 transition-transform duration-300 opacity-0  group-hover:opacity-100 group-hover:translate-x-2">
                             -

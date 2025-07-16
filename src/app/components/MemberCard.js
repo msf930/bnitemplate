@@ -45,7 +45,7 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
 
     const formatPhoneNumber = (phoneNumber) => {
         if (!phoneNumber) return null;
-        
+
         // Remove all non-digits
         const cleaned = phoneNumber.replace(/\D/g, '');
 
@@ -65,15 +65,15 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
 
     const formatSocialUrl = (url, platform) => {
         if (!url) return null;
-        
+
         // If URL already has http/https, return as is
         if (url.startsWith('http://') || url.startsWith('https://')) {
             return url;
         }
-        
+
         // Remove any leading slashes or @ symbols
         const cleanUrl = url.replace(/^[\/@]+/, '');
-        
+
         // Format based on platform
         switch (platform) {
             case 'linkedin':
@@ -146,7 +146,7 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                             <div className="font-bold text-xl">{member.firstName || 'N/A'}</div>
                             <div className="font-bold text-xl">{member.lastName || 'N/A'}</div>
                         </div>
-                       
+
                         <div className="flex flex-col gap-2">
                             {member.company && <div className="text-md text-gray-600">{member.company}</div>}
                             {member.position && <div className="text-md text-gray-600">{member.position}</div>}
@@ -169,7 +169,16 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                             className="w-full flex flex-col gap-2 "
                         >
 
-                            {member.bio && <div className="text-gray-700 text-start pt-4">{member.bio}</div>}
+                            {member.bio &&
+                                <motion.div
+                                    initial={{ opacity: 0, x: 0 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut", delay: 0.3 }}
+                                    className="text-gray-700 text-start pt-4">
+                                    {member.bio}
+                                </motion.div>
+                            }
                             {isExpanded && <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}

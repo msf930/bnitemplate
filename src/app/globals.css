@@ -33,8 +33,10 @@
 .pageAll{
   position: relative;
 }
+
 .heroCont {
-  background: radial-gradient(ellipse at 50% 100%, #CF203099 0%, white 70%);
+  /* background: radial-gradient(ellipse at 50% 100%, #CF203099 0%, white 70%); */
+  background: #ffffff;
   width: calc(100% - 40px);
   height: 120vh;
   min-height: 100vh;
@@ -44,6 +46,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  z-index: 0;
+}
+.heroContBg {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(ellipse at 50% 100%, #CF203099 0%, transparent 70%);
+  border-radius: 20px;
+  pointer-events: none;
+}
+.heroContParticles{
+  position: absolute;
+  top: 0;
+  left: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 .heroTitleText{
   margin-top: 150px;
@@ -56,6 +78,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  z-index: 2;
 }
 .heroSubText{
   font-size: 1.5rem;
@@ -68,6 +91,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  z-index: 2;
 }
 .heroButtonContainer{
   width: 100%;
@@ -91,6 +115,14 @@
     background: #CF2030;
     color: white;
   }
+}
+
+.heroButtonGlass {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
 .heroRiveContainer{
   width: 100%;
@@ -124,61 +156,75 @@
   position: relative;
   width: 60%;
   height: 80%;
-  left: -5%;
+  left: -10%;
+  z-index: 30;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  
 }
 .aboutHandshake {
-  position: relative;
-  left: 0;
-  z-index: 2;
+  z-index: 30;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
 }
 .aboutMemberBox {
-  position: absolute;
-  bottom: 18px;
-  right: 15%;
-  background: white;
-  color: black;
+  /* position: absolute;
+  bottom: 0;
+  right: 60px; */
+  /* background: white; */
+  color: white;
   font-weight: 700;
   font-size: 1.1rem;
-  border-radius: 12px;
-  padding: 12px 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  min-width: 100px;
-  min-height: 50px;
-  height: 150px;
-  width: 120px;
+  /* border-radius: 12px; */
+  /* padding: 12px 20px; */
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.08); */
+  
+  height: 80px;
+  width: 100px;
   text-align: center;
-  z-index: 3;
+  
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10px;
+  z-index: 100;
+  /* background-color: #000; */
+}
+.aboutMemberIcon{
+  filter: invert(1);
 }
 .aboutButtonContainer{
+  position: relative;
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 100%;
+  width: 40vw;
+  height: 10px;
+  margin-top: 40px;
 }
 .aboutButton{
+  position: relative;
+  align-self: flex-start;
+  justify-self: flex-start;
   font-size: 1.2rem;
   font-weight: 400;
-  color: white;
+  color: #000000B3;
   text-align: center;
   padding: 6px;
-  background: #CF2030B3;
-  width: 200px;
+  
+  width: 400px;
   border-radius: 20px;
-  margin-top: 20px;
+  margin-top: 40px;
   cursor: pointer;
   transition: all 0.3s ease;
-  &:hover{
-    background: #CF2030;
-    color: white;
-  }
+  
 }
 .aboutRight {
   padding: 20px;
+  width: 40vw;
 }
 
 .memberSection{
@@ -199,6 +245,7 @@
   align-items: center;
   justify-content: center;
   width: calc(90vw - 80px);
+  max-width: 1200px;
   height: auto;
   gap: 20px;
 }
