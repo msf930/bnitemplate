@@ -171,7 +171,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-gray-700">
-              <p className="text-gray-700 text-sm">BNI 360</p>
+              <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-gray-700 text-sm">BNI 360</Link>
               <a 
                 href="https://servaldesigns.com" 
                 target="_blank" 
