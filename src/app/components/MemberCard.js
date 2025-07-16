@@ -97,8 +97,8 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                         ) : (
                             <div className="w-[120px] h-[120px] relative bg-white rounded-full flex items-center justify-center text-gray-500">
                                 <Image
-                                    src="/360LogoRed.png"
-                                    alt={member?.firstName + ' ' + member?.lastName}
+                                    src="/360logoRed.png"
+                                    alt="BNI 360 Logo"
                                     fill
                                     style={{ objectFit: 'contain' }}
                                     className="rounded-full"
