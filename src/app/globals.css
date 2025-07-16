@@ -7,7 +7,7 @@
 }
 
 /* Mobile-only styles - hide content and show message */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   .pageAll {
     display: none;
   }
@@ -28,7 +28,7 @@
     max-width: 90vw;
     z-index: 9999;
   }
-} */
+}
 
 .pageAll{
   position: relative;
