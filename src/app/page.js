@@ -78,7 +78,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="heroButton"
               >
-                Join Now
+                Visit Our Chapter
               </motion.div>
             </div>
 
@@ -114,9 +114,9 @@ export default function Home() {
               <div className="aboutRight flex flex-col items-center justify-center text-left w-[40%] gap-4">
                 <h1 className="text-4xl font-bold w-[100%]">Why Join Our Chapter?</h1>
                 <p className="text-lg font-light w-[100%]">Real connections. Tangible results.</p>
-                <p className="text-lg w-[100%]">Whether you're a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don’t just meet people — you build lasting partnerships.</p>
+                <p className="text-lg w-[100%]">Whether you&apos;re a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don&apos;t just meet people &mdash; you build lasting partnerships.</p>
                 <div className="aboutButtonContainer">
-                  <div className="aboutButton">Join Now</div>
+                  <div className="aboutButton">Visit Our Chapter</div>
                 </div>
               </div>
             </div>
