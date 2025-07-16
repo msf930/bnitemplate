@@ -8,9 +8,44 @@ import { faLinkedin, faInstagram, faFacebook } from '@fortawesome/free-brands-sv
 
 
 export default function MemberCard({ member, index, isExpanded, onExpand }) {
-
+    // Handle null/undefined member data
+    if (!member) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ ease: "easeIn", duration: 0.2 }}
+                exit={{ opacity: 0, y: -100, transition: { duration: 0.4 } }}
+                viewport={{ once: true }}
+                className="memberCardContainer"
+            >
+                <div className="memberCard flex flex-col items-center p-6 cursor-pointer transition-all duration-300 max-h-[180px] overflow-hidden">
+                    <div className="flex flex-row items-center w-full gap-6">
+                        <div className="flex-shrink-0">
+                            <div className="w-[120px] h-[120px] relative bg-white rounded-full flex items-center justify-center text-gray-500">
+                                <Image
+                                    src="/360logoRed.png"
+                                    alt="BNI 360 Logo"
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                    className="rounded-full"
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-3 items-center justify-evenly gap-2 w-full">
+                            <div className="flex flex-row items-center justify-center gap-2 text-center">
+                                <div className="font-bold text-xl">No Data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        );
+    }
 
     const formatPhoneNumber = (phoneNumber) => {
+        if (!phoneNumber) return null;
+        
         // Remove all non-digits
         const cleaned = phoneNumber.replace(/\D/g, '');
 
@@ -108,8 +143,8 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                     </div>
                     <div className="grid grid-cols-3 items-center justify-evenly gap-2 w-full">
                         <div className="flex flex-row items-center justify-center gap-2 text-center">
-                            <div className="font-bold text-xl">{member.firstName}</div>
-                            <div className="font-bold text-xl">{member.lastName}</div>
+                            <div className="font-bold text-xl">{member.firstName || 'N/A'}</div>
+                            <div className="font-bold text-xl">{member.lastName || 'N/A'}</div>
                         </div>
                        
                         <div className="flex flex-col gap-2">
@@ -119,7 +154,7 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                         </div>
                         <div className="flex flex-col gap-2">
                             {member.email && <div className="text-md text-gray-600">{member.email}</div>}
-                            {member.phone && <div className="text-md text-gray-500">{formatPhoneNumber(member.phone)}</div>}
+                            {member.phone && formatPhoneNumber(member.phone) && <div className="text-md text-gray-500">{formatPhoneNumber(member.phone)}</div>}
                         </div>
 
                     </div>
