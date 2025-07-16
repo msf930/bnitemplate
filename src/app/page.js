@@ -13,6 +13,7 @@ import { SanityDocument } from "next-sanity";
 
 import { client } from "../sanity/lib/client";
 import MemberCard from "./components/MemberCard";
+import Link from "next/link";
 
 const MEMBERS_QUERY = `*[
   _type == "member"
@@ -70,7 +71,7 @@ export default function Home() {
               className="heroSubText">
               Expand your network with purpose.<br />Grow your business through real relationships.
             </motion.p>
-            <div className="heroButtonContainer">
+            <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonContainer">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1}}
@@ -80,7 +81,7 @@ export default function Home() {
               >
                 Visit Our Chapter
               </motion.div>
-            </div>
+            </Link>
 
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -116,7 +117,7 @@ export default function Home() {
                 <p className="text-lg font-light w-[100%]">Real connections. Tangible results.</p>
                 <p className="text-lg w-[100%]">Whether you&apos;re a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don&apos;t just meet people &mdash; you build lasting partnerships.</p>
                 <div className="aboutButtonContainer">
-                  <div className="aboutButton">Visit Our Chapter</div>
+                  <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="aboutButton">Visit Our Chapter</Link>
                 </div>
               </div>
             </div>

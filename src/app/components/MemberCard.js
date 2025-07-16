@@ -84,7 +84,7 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
                 <div className="flex flex-row items-center w-full gap-6">
 
                     <div className="flex-shrink-0">
-                        {member.image ? (
+                        {member.image !== null ? (
                             <div className="w-[120px] h-[120px] relative bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                                 <Image
                                     src={member?.image?.asset?.url}
