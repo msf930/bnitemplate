@@ -27,7 +27,7 @@ export default function Home() {
     stateMachines: "State Machine 1",
     autoplay: true,
   });
-  
+
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -52,7 +52,7 @@ export default function Home() {
         transition={{ ease: "easeIn", duration: 0.6 }}
         exit={{ opacity: 0, transition: { duration: 0.4 } }}
       >
-        <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden">
+        <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden pageAll">
           <Nav />
           <div id="home" className="heroCont">
             <motion.h1
@@ -74,7 +74,7 @@ export default function Home() {
             <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonContainer">
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1}}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 1.2, delay: 0.9 }}
                 viewport={{ once: true }}
                 className="heroButton"
@@ -82,7 +82,7 @@ export default function Home() {
                 Visit Our Chapter
               </motion.div>
             </Link>
-
+            
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,10 +90,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="heroRiveContainer"
             >
-              <div className="w-[100%] h-[100%] cursor-pointer">
+              <div className="w-[100%] h-[100%] cursor-pointer z-10">
                 <RiveComponent />
               </div>
             </motion.div>
+            
           </div>
           <div id="about" className="flex flex-col items-center justify-center w-[100%] aboutSection">
             <div className="flex flex-row items-center justify-center w-full gap-10 ">
@@ -136,10 +137,10 @@ export default function Home() {
             ) : (
               <div className="flex flex-col flex-wrap items-center justify-center w-full gap-10 relative h-auto mb-30">
                 {members?.map((member, index) => (
-                  <MemberCard 
-                    key={index} 
-                    member={member} 
-                    index={index} 
+                  <MemberCard
+                    key={index}
+                    member={member}
+                    index={index}
                     isExpanded={expandedIndex === index}
                     onExpand={() => handleCardExpand(index)}
                   />
@@ -172,10 +173,10 @@ export default function Home() {
             </div>
             <div className="flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-gray-700">
               <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-gray-700 text-sm">BNI 360</Link>
-              <a 
-                href="https://servaldesigns.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://servaldesigns.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-700 hover:text-white transition-colors text-sm"
               >
                 Powered by Serval Designs
