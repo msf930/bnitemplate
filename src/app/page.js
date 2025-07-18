@@ -52,6 +52,7 @@ export default function Home() {
   const [particlesVisible, setParticlesVisible] = useState(false);
   const [isFirefox, setIsFirefox] = useState(false);
   const [isSafari, setIsSafari] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
     // Detect browsers
@@ -61,6 +62,34 @@ export default function Home() {
     
     setIsFirefox(isFirefoxBrowser);
     setIsSafari(isSafariBrowser);
+  }, []);
+
+  useEffect(() => {
+    // Handle window resize with debouncing
+    let resizeTimeout;
+    
+    const handleResize = () => {
+      setIsResizing(true);
+      
+      // Clear existing timeout
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+      
+      // Set new timeout
+      resizeTimeout = setTimeout(() => {
+        setIsResizing(false);
+      }, 300); // Wait 300ms after resize stops
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -86,14 +115,16 @@ export default function Home() {
     await loadTrianglesPreset(Engine);
   };
 
-  // Particle options for stars - optimized for performance
+ 
   const particlesOptions = {
     preset: "triangles",
     background: { color: "transparent" },
     fullScreen: false,
+    pauseOnBlur: true,
+    pauseOnOutsideViewport: true,
     particles: {
       number: {
-        value: 60, // Reduced from 80
+        value: 80, // Reduced for better performance
         density: {
           enable: true,
         },
@@ -103,16 +134,16 @@ export default function Home() {
         enable: true,
         triangles: {
           enable: true,
-          opacity: 0.8 // Reduced opacity
+          opacity: 0.6 // Reduced opacity
         }
       },
       shape: {
         type: "circle",
       },
       color: { value: "#CF2030" },
-      opacity: { value: 0.8 }, // Reduced from 1.0
-      size: { value: 1.5 }, // Reduced from 1.2
-      move: { enable: true, speed: 0.2 }, // Reduced speed
+      opacity: { value: 0.6 }, // Reduced opacity
+      size: { value: 1.5 }, // Reduced size
+      move: { enable: true, speed: 0.15 }, // Reduced speed
     },
     style: { position: 'absolute', top: 0, left: 0, zIndex: 1000, pointerEvents: 'none' },
   };
@@ -121,9 +152,11 @@ export default function Home() {
     preset: "triangles",
     background: { color: "transparent" },
     fullScreen: false,
+    pauseOnBlur: true,
+    pauseOnOutsideViewport: true,
     particles: {
       number: {
-        value: 60, // Much fewer particles for member section
+        value: 80, // Reduced for better performance
         density: {
           enable: true,
         },
@@ -133,16 +166,16 @@ export default function Home() {
         enable: true,
         triangles: {
           enable: true,
-          opacity: 0.6
+          opacity: 0.5
         }
       },
       shape: {
         type: "circle",
       },
-      color: { value: "#CF2030" },
-      opacity: { value: 1.0 },
-      size: { value: 0.8 },
-      move: { enable: true, speed: 0.3 }, // Very slow movement
+      color: { value: "#ffffff" },
+      opacity: { value: 0.8 },
+      size: { value: 0.6 }, // Reduced size
+      move: { enable: true, speed: 0.1 }, // Very slow movement
     },
     style: { position: 'absolute', top: 0, left: 0, zIndex: 1000, pointerEvents: 'none' },
   };
@@ -156,7 +189,7 @@ export default function Home() {
         transition={{ ease: "easeIn", duration: 0.6 }}
         exit={{ opacity: 0, transition: { duration: 0.4 } }}
       >
-        <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden pageAll">
+        <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden pageAll pt-[100px]">
           <Nav />
           <div id="home" className="heroCont">
             <div className="heroContBg"></div>
@@ -168,7 +201,7 @@ export default function Home() {
                   transition={{ ease: "easeIn", duration: 0.6 }}
                   exit={{ opacity: 0, transition: { duration: 0.4 } }}
                 >
-                  {particlesVisible && (
+                  {particlesVisible && !isResizing && (
                     <Particles id="tsparticles-hero" init={particlesInit} options={particlesOptions} />
                   )}
                 </motion.div>
@@ -339,7 +372,9 @@ export default function Home() {
 
                 </div>
                 <div className="memberContParticles">
-                  <Particles id="tsparticles-member" init={memberParticlesInit} options={memberParticlesOptions} />
+                  {particlesVisible && !isResizing && (
+                    <Particles id="tsparticles-member" init={memberParticlesInit} options={memberParticlesOptions} />
+                  )}
                 </div>
               </>
             )}

@@ -6,7 +6,6 @@ import Image from "next/image";
 
 
 export default function Nav() {
-    const [show, setShow] = useState(true);
     const [activeSection, setActiveSection] = useState('home');
     const lastScrollY = useRef(0);
     const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
@@ -24,24 +23,13 @@ export default function Nav() {
         const handleScroll = () => {
             if (typeof window === "undefined") return;
             const currentScrollY = window.scrollY;
-            const scrollDifference = currentScrollY - lastScrollY.current;
+            
             // Always show nav at the top
             if (currentScrollY < scrollThreshold) {
-                setShow(true);
                 setActiveSection('home');
                 return;
             }
-            // Only trigger hide/show if scroll difference is significant
-            if (Math.abs(scrollDifference) > 5) {
-                if (scrollDifference > 0) {
-                    // Scrolling down
-                    setShow(false);
-                } else {
-                    // Scrolling up
-                    setShow(true);
-                }
-            }
-            lastScrollY.current = currentScrollY;
+            
             // Scrollspy logic
             let found = false;
             for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -63,7 +51,8 @@ export default function Nav() {
 
     return (
         <div
-            className={`fixed top-0 left-0 right-0 z-50 h-[100px] transition-transform duration-300 bg-white shadow-md`}
+            className="fixed top-0 left-0 right-0 z-[9999] h-[100px] bg-white shadow-md"
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}
         >
             <div className="grid grid-cols-3 justify-center items-center px-10 w-full h-[100px]">
                 

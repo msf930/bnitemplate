@@ -32,6 +32,8 @@
 
 .pageAll{
   position: relative;
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+  will-change: transform; /* Optimize for animations */
 }
 
 .heroCont {
@@ -51,6 +53,8 @@
   z-index: 0;
   mask-image: linear-gradient(to bottom, black calc(100% - 100px), transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 100px), transparent 100%);
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+  will-change: transform; /* Optimize for animations */
 }
 .heroContBg {
   position: absolute;
@@ -310,11 +314,11 @@
   font-weight: 700;
   text-align: center;
   padding: 20px;
-  background: linear-gradient(90deg, black 20%, #CF2030 100%);
+  /* background: linear-gradient(90deg, black 20%, #CF2030 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  background-clip: text; */
+  color: white;
 }
 .memberGrid {
   display: flex;
@@ -357,7 +361,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translate3d(0, 0, 0); /* Force hardware acceleration */
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
   padding: 20px;
@@ -365,4 +369,5 @@
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  will-change: transform; /* Optimize for animations */
 }
