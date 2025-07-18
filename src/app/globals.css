@@ -32,8 +32,8 @@
 
 .pageAll{
   position: relative;
-  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
-  will-change: transform; /* Optimize for animations */
+  /* transform: translate3d(0, 0, 0); 
+  will-change: transform;  */
 }
 
 .heroCont {
