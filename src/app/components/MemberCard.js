@@ -103,14 +103,6 @@ export default function MemberCard({ member, index, isExpanded, onExpand }) {
             className="memberCardContainer"
 
         >
-            <motion.div
-                animate={{ rotate: isExpanded ? 90 : 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="text-gray-500 text-4xl cursor-pointer"
-                onClick={onExpand}
-            >
-                ›
-            </motion.div>
 
             <div
                 className={`memberCard flex flex-col items-center p-6  cursor-pointer transition-all duration-300 ${isExpanded ? 'max-h-[600px]' : 'max-h-[180px] overflow-hidden'}`}

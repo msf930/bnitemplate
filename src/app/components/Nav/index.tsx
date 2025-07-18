@@ -63,12 +63,12 @@ export default function Nav() {
 
     return (
         <div
-            className={`fixed top-0 left-0 right-0 z-50 h-[100px] transition-transform duration-300 bg-white shadow-md ${show ? 'translate-y-0' : '-translate-y-full'}`}
+            className={`fixed top-0 left-0 right-0 z-50 h-[100px] transition-transform duration-300 bg-white shadow-md`}
         >
-            <div className="grid grid-cols-3 justify-center items-center p-6 max-w-7xl mx-auto">
-                <Link href="/">
+            <div className="grid grid-cols-3 justify-center items-center px-10 w-full h-[100px]">
+                
                     <Image src="/360logoRed.png" alt="logo" width={100} height={100} />
-                </Link>
+                
                 <div className="flex justify-center items-center gap-4">
                     <button
                         onClick={() => scrollToSection('home')}
@@ -85,8 +85,7 @@ export default function Nav() {
                 </div>
                 <div className="flex justify-end items-center">
                     <Link 
-                    // href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" 
-                    href="https://www.google.com"
+                    href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="cursor-pointer text-[#CF2030] flex justify-center items-center group">
