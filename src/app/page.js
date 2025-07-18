@@ -50,6 +50,18 @@ export default function Home() {
 
   const [buttonVisible, setButtonVisible] = useState(false);
   const [particlesVisible, setParticlesVisible] = useState(false);
+  const [isFirefox, setIsFirefox] = useState(false);
+  const [isSafari, setIsSafari] = useState(false);
+
+  useEffect(() => {
+    // Detect browsers
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isFirefoxBrowser = userAgent.includes('firefox');
+    const isSafariBrowser = userAgent.includes('safari') && !userAgent.includes('chrome');
+    
+    setIsFirefox(isFirefoxBrowser);
+    setIsSafari(isSafariBrowser);
+  }, []);
 
   useEffect(() => {
     // Trigger fade-in after 1 second
@@ -63,7 +75,7 @@ export default function Home() {
     // Show particles after a delay to reduce initial load
     const timeout = setTimeout(() => {
       setParticlesVisible(true);
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -178,33 +190,41 @@ export default function Home() {
               className="heroSubText">
               Expand your network with purpose.<br />Grow your business through real relationships.
             </motion.p>
-
-            <div className={`heroButtonGlass transition-opacity duration-1000 ease-linear ${buttonVisible ? 'opacity-100' : 'opacity-0'}`} >
-              <LiquidGlass
-                displacementScale={40}
-                blurAmount={0.3}
-                saturation={100}
-                aberrationIntensity={1}
-                elasticity={0.05}
-                cornerRadius={32}
-                mode="prominent"
-                overLight={false}
-                style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 20 }}
-              >
+            {isFirefox || isSafari ?
+              <div className={`heroButton ${buttonVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <Link
                   href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ zIndex: 20 }}
-
                 >
-
                   Visit Our Chapter
-
                 </Link>
-              </LiquidGlass>
-            </div>
+              </div>
+              :
+              <div className={`heroButtonGlass transition-opacity duration-1000 ease-linear ${buttonVisible ? 'opacity-100' : 'opacity-0'}`} >
+                <LiquidGlass
+                  displacementScale={40}
+                  blurAmount={0.3}
+                  saturation={100}
+                  aberrationIntensity={1}
+                  elasticity={0.05}
+                  cornerRadius={32}
+                  mode="prominent"
+                  overLight={false}
+                  style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 20 }}
+                >
+                  <Link
+                    href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ zIndex: 20 }}
 
+                  >
+                    Visit Our Chapter
+                  </Link>
+                </LiquidGlass>
+              </div>
+            }
 
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -226,7 +246,15 @@ export default function Home() {
                   <div className="aboutHandshakeContainer">
                     <Image src="/handshake.jpg" alt="logo" fill objectFit="cover" className="aboutHandshake" />
                   </div>
-                  <LiquidGlass
+                {isFirefox || isSafari ? <div className="aboutMemberBoxFirefox " style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 300 }}>
+                    <div className="flex flex-row items-center justify-center gap-2">
+                      <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
+                      <p className="aboutMemberText">{members.length}<br /></p>
+                    </div>
+
+                    <p className="aboutMemberText">members</p>
+                  </div> :
+                   <LiquidGlass
                     displacementScale={10}
                     blurAmount={0.01}
                     saturation={100}
@@ -245,7 +273,7 @@ export default function Home() {
 
                       <p className="aboutMemberText">members</p>
                     </div>
-                  </LiquidGlass>
+                  </LiquidGlass>}
                 </div>
               </div>
               <div className="aboutRight flex flex-col items-center justify-center text-left w-[40%] gap-4">
@@ -253,26 +281,36 @@ export default function Home() {
                 <p className="text-lg font-light w-[100%]">Real connections. Tangible results.</p>
                 <p className="text-lg w-[100%]">Whether you&apos;re a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don&apos;t just meet people &mdash; you build lasting partnerships.</p>
                 <div className="aboutButtonContainer">
-                  <LiquidGlass
-                    displacementScale={15}
-                    blurAmount={0.03}
-                    saturation={100}
-                    aberrationIntensity={1}
-                    elasticity={0.05}
-                    cornerRadius={32}
-                    mode="shader"
-                    overLight={false}
-                    style={{ position: 'absolute', top: '50%', left: '20%', transform: 'translate(-50%, -50%)' }}
-                  >
-
-                    <Link
-                      href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="aboutButton">
-                      Schedule A Visit
-                    </Link>
-                  </LiquidGlass>
+                  {isFirefox || isSafari ?
+                    <div className="aboutButtonFirefox">
+                      <Link
+                        href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >
+                        Schedule A Visit
+                      </Link>
+                    </div>
+                    :
+                    <LiquidGlass
+                      displacementScale={15}
+                      blurAmount={0.03}
+                      saturation={100}
+                      aberrationIntensity={1}
+                      elasticity={0.05}
+                      cornerRadius={32}
+                      mode="shader"
+                      overLight={false}
+                      style={{ position: 'absolute', top: '50%', left: '20%', transform: 'translate(-50%, -50%)' }}
+                    >
+                      <Link
+                        href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="aboutButton">
+                        Schedule A Visit
+                      </Link>
+                    </LiquidGlass>}
                 </div>
               </div>
             </div>
@@ -298,7 +336,7 @@ export default function Home() {
                       index={index}
                     />
                   ))}
-                   
+
                 </div>
                 <div className="memberContParticles">
                   <Particles id="tsparticles-member" init={memberParticlesInit} options={memberParticlesOptions} />
