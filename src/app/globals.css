@@ -11,29 +11,87 @@
   .pageAll {
     display: none;
   }
-  
-  body::before {
-    content: "This website is optimized for desktop viewing. Please visit on a larger screen for the best experience.";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+  .memberSectionMobile {
+    display: flex !important;
+    background: #e46e72;
+  }
+
+  .heroContMobile {
+    display: flex !important;
+    background: #e46e72;
+    background: linear-gradient(to top, #e46e72 0%, white 80%);
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heroContBgMobile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    padding: 30px 0;
+    z-index: 10;
+    background-color: white;
+    border-radius: 20px;
+    pointer-events: none;
+
+  }
+
+  .heroButtonMobile {
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
     text-align: center;
-    font-size: 1.2rem;
-    color: #CF2030;
-    background: white;
-    padding: 2rem;
+    padding: 6px;
+    background-color: #e46e72;
+    width: 200px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    max-width: 90vw;
-    z-index: 9999;
+  }
+
+  .heroImageMobile {
+    position: relative;
+    width: 80vw;
+    height: 30vh;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .heroTitleTextMobile {
+    font-size: 20px;
+    background: linear-gradient(90deg, black 20%, #CF2030 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
   }
 }
 
-.pageAll{
+@media (min-width: 768px) {
+  .memberSectionMobile {
+    display: none !important;
+  }
+}
+
+.pageAll {
   position: relative;
   /* transform: translate3d(0, 0, 0); 
   will-change: transform;  */
+}
+
+.navCont {
+  z-index: 1000;
 }
 
 .heroCont {
@@ -53,9 +111,12 @@
   z-index: 0;
   mask-image: linear-gradient(to bottom, black calc(100% - 100px), transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 100px), transparent 100%);
-  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
-  will-change: transform; /* Optimize for animations */
+  transform: translate3d(0, 0, 0);
+  /* Force hardware acceleration */
+  will-change: transform;
+  /* Optimize for animations */
 }
+
 .heroContBg {
   position: absolute;
   inset: 0;
@@ -64,7 +125,8 @@
   border-radius: 20px;
   pointer-events: none;
 }
-.heroContParticles{
+
+.heroContParticles {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,7 +137,8 @@
   pointer-events: none;
   opacity: 1;
 }
-.heroTitleText{
+
+.heroTitleText {
   margin-top: 150px;
   font-size: 4rem;
   font-weight: 700;
@@ -88,7 +151,8 @@
   color: transparent;
   z-index: 2;
 }
-.heroSubText{
+
+.heroSubText {
   font-size: 1.5rem;
   font-weight: 400;
   color: white;
@@ -101,13 +165,15 @@
   color: transparent;
   z-index: 2;
 }
-.heroButtonContainer{
+
+.heroButtonContainer {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.heroButton{
+
+.heroButton {
   font-size: 1.2rem;
   font-weight: 400;
   color: black;
@@ -120,7 +186,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 300;
-  &:hover{
+
+  &:hover {
     background-color: #CF2030;
     color: white;
   }
@@ -136,7 +203,8 @@
   margin-top: 40px;
   z-index: 100;
 }
-.heroRiveContainer{
+
+.heroRiveContainer {
   width: 100%;
   height: 100%;
   display: flex;
@@ -144,14 +212,17 @@
   justify-content: center;
   z-index: 10;
 }
+
 .aboutSection {
   margin-top: 40px;
   width: 100%;
   height: 80vh;
 }
+
 .aboutLeft {
   min-width: 300px;
 }
+
 .aboutRedBox {
   background: #e46e72;
   position: relative;
@@ -164,6 +235,7 @@
   overflow: visible;
   border-radius: 20px;
 }
+
 .aboutHandshakeContainer {
   position: relative;
   width: 60%;
@@ -172,14 +244,16 @@
   z-index: 30;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-  
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+
 }
+
 .aboutHandshake {
   z-index: 30;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
+
 .aboutMemberBox {
   /* position: absolute;
   bottom: 0;
@@ -190,7 +264,7 @@
   font-size: 1.1rem;
   border-radius: 12px;
   padding: 10px;
-  
+
   /* height: 80px;
   width: 100px;
   text-align: center;
@@ -203,6 +277,7 @@
   z-index: 100; */
   /* background-color: #000; */
 }
+
 .aboutMemberBoxFirefox {
   /* position: absolute;
   bottom: 0;
@@ -230,10 +305,12 @@
   z-index: 100; */
   /* background-color: #000; */
 }
-.aboutMemberIcon{
+
+.aboutMemberIcon {
   filter: invert(1);
 }
-.aboutButtonContainer{
+
+.aboutButtonContainer {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -243,7 +320,8 @@
   height: 10px;
   margin-top: 40px;
 }
-.aboutButton{
+
+.aboutButton {
   position: relative;
   align-self: flex-start;
   justify-self: flex-start;
@@ -252,16 +330,17 @@
   color: #000000B3;
   text-align: center;
   padding: 6px;
-  
+
   width: 400px;
   border-radius: 20px;
   margin-top: 40px;
   cursor: pointer;
   transition: all 0.3s ease;
-  
-  
+
+
 }
-.aboutButtonFirefox{
+
+.aboutButtonFirefox {
   position: relative;
   align-self: flex-start;
   justify-self: flex-start;
@@ -270,30 +349,32 @@
   color: #000000B3;
   text-align: center;
   margin-top: -20px;
-  
+
   width: 200px;
   border-radius: 20px;
-  
+
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   padding: 8px;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  &:hover{
+
+  &:hover {
     background-color: #CF2030;
     color: white;
   }
 }
+
 .aboutRight {
   padding: 20px;
   width: 40vw;
 }
 
-.memberSection{
+.memberSection {
   width: calc(100% - 40px);
   min-height: 100vh;
   height: auto;
@@ -302,14 +383,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; /* Add this to contain absolute positioned children */
+  position: relative;
+  /* Add this to contain absolute positioned children */
   /* background: radial-gradient(ellipse at 100% 100%, #fff 0%, #fff 100%); */
   /* background: radial-gradient(ellipse at 100% 100%, #CF2030B3 0%, #CF2030B3 100%); */
   /* background: #cf202f6d; */
   background: #e46e72;
-  overflow: hidden; /* Add this to clip particles to the section */
+  overflow: hidden;
+  /* Add this to clip particles to the section */
 }
-.membersTitle{
+
+.membersTitle {
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
@@ -320,6 +404,7 @@
   background-clip: text; */
   color: white;
 }
+
 .memberGrid {
   display: flex;
   flex-direction: row;
@@ -332,7 +417,8 @@
   height: auto;
   margin-bottom: 7.5rem;
 }
-.memberContParticles{
+
+.memberContParticles {
   position: absolute;
   top: 0;
   left: 0;
@@ -341,33 +427,4 @@
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
-}
-.memberCardContainer{
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: calc(((90vw - 80px) / 3) - 10px);
-  min-width: 300px;
-  max-width: 400px;
-  height: 250px;
-  border-radius: 32px;
-  /* border: 1px solid #CF2030; */
-}
-.memberCard{
-  
-  border-radius: 32px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) translate3d(0, 0, 0); /* Force hardware acceleration */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 100%;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  will-change: transform; /* Optimize for animations */
 }

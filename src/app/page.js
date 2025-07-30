@@ -15,9 +15,11 @@ import { client } from "../sanity/lib/client";
 // import MemberCard from "./components/MemberCard";
 import Link from "next/link";
 import Particles from "react-tsparticles";
-import MemberCardSmall from "./components/MemberCardSmall";
-
+import { FaArrowDown } from "react-icons/fa";
 import { loadTrianglesPreset } from "tsparticles-preset-triangles";
+
+import MemberCardSmall from "./components/MemberCardSmall/MemberCardSmall.js";
+
 
 const MEMBERS_QUERY = `*[
   _type == "member"
@@ -190,7 +192,9 @@ export default function Home() {
         exit={{ opacity: 0, transition: { duration: 0.4 } }}
       >
         <div className="flex flex-col items-center justify-center w-[100%] overflow-x-hidden pageAll pt-[100px]">
-          <Nav />
+          <div className="navCont">
+            <Nav />
+          </div>
           <div id="home" className="heroCont">
             <div className="heroContBg"></div>
             <div className="heroContParticles">
@@ -221,7 +225,7 @@ export default function Home() {
               transition={{ duration: 1.5, delay: 0.7 }}
               viewport={{ once: true }}
               className="heroSubText">
-              Expand your network with purpose.<br />Grow your business through real relationships.
+              Expand your network with BNI 360 Impact.<br />Grow your business through real relationships.
             </motion.p>
             {isFirefox || isSafari ?
               <div className={`heroButton ${buttonVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -332,7 +336,7 @@ export default function Home() {
                       aberrationIntensity={1}
                       elasticity={0.05}
                       cornerRadius={32}
-                      mode="shader"
+                      mode="standard"
                       overLight={false}
                       style={{ position: 'absolute', top: '50%', left: '20%', transform: 'translate(-50%, -50%)' }}
                     >
@@ -414,7 +418,80 @@ export default function Home() {
               </a>
             </div>
           </div>
+          
         </div>
+        <div className="flex flex-col items-center justify-center w-[100%] memberSectionMobile text-center">
+          <div className="heroContMobile">
+            <div className="heroContBgMobile">
+              <div className="flex flex-row items-center justify-between gap-4 w-[90%]">
+                <div className="heroButtonContainerMobile">
+                  <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Register to Visit</Link>
+                </div>
+                <div>
+                  <Link href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Offical BNI Website</Link>
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-center gap-2">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="heroImageMobile"
+                >
+                  <Image src="/360logoRed.png" alt="logo" fill objectFit="contain"  />
+                </motion.div>
+                  <motion.h3 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="heroTitleTextMobile"
+                  >Connecting Professionals<br />Creating Opportunities</motion.h3>
+                  
+              </div>
+             
+              <div className="flex flex-col items-center justify-center gap-2">
+                <h3>Scroll to see our members</h3>
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ 
+                    duration: 1.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                >
+                  <FaArrowDown />
+                </motion.div>
+              </div>
+              
+            </div>
+          </div>
+            <h1 className="membersTitle font-bold w-[100%] mb-10">Meet Our Members</h1>
+            {loading ? (
+              <div className="flex flex-col items-center justify-center gap-4">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-12 h-12 border-4 border-gray-300 border-t-[#CF2030] rounded-full"
+                />
+                <p className="text-gray-600 text-lg">Loading members...</p>
+              </div>
+            ) : (
+              <>
+                <div className="memberGrid">
+                  {members?.map((member, index) => (
+                    <MemberCardSmall
+                      key={index} // Use member._id as key instead of index
+                      member={member}
+                      index={index}
+                    />
+                  ))}
+
+                </div>
+                
+              </>
+            )}
+          </div>
       </motion.div>
     </AnimatePresence>
   );
