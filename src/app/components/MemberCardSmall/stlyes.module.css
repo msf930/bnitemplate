@@ -5,7 +5,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: calc(((90vw - 80px) / 3) - 10px);
-    min-width: 300px;
+    min-width: 350px;
     max-width: 400px;
     height: 250px;
     border-radius: 32px;

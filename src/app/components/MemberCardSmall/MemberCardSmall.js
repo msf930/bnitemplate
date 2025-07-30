@@ -189,12 +189,27 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                 <div className="flex flex-col pt-2 items-end justify-between gap-1 text-left w-full h-full">
 
                     <div className="flex flex-col justify-end items-start text-left w-full h-full text-sm">
-                        {member.email && <div className="text-md text-[#ffffff]">{member.email}</div>}
-
+                        {member.email && (
+                            <a 
+                                href={`mailto:${member.email}`}
+                                className="text-md text-[#ffffff] hover:text-gray-300 transition-colors duration-200"
+                                title="Send email"
+                            >
+                                {member.email}
+                            </a>
+                        )}
                     </div>
                     <div className="flex flex-row justify-between items-center text-left w-full h-full text-sm">
-                        {member.phone && formatPhoneNumber(member.phone) && <div className="text-md text-[#ffffff] whitespace-nowrap">{formatPhoneNumber(member.phone)}</div>}
-                        <div className="flex flex-row flex-wrap justify-end items-end text-left w-full h-auto text-sm gap-2">
+                        {member.phone && formatPhoneNumber(member.phone) && (
+                            <a 
+                                href={`tel:+1${member.phone.replace(/\D/g, '')}`}
+                                className="text-md text-[#ffffff] whitespace-nowrap hover:text-gray-300 transition-colors duration-200"
+                                title="Call"
+                            >
+                                {formatPhoneNumber(member.phone)}
+                            </a>
+                        )}
+                        <div className="flex flex-row flex-wrap justify-end items-end text-left w-full h-auto text-sm gap-4">
                             {member.linkedin && (
                                 <a href={formatSocialUrl(member.linkedin)} target="_blank" rel="noopener noreferrer" >
                                     <FontAwesomeIcon icon={faLinkedin} size="lg" className="text-[#ffffff]" />

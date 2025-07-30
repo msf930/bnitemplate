@@ -416,6 +416,7 @@
   position: relative;
   height: auto;
   margin-bottom: 7.5rem;
+  z-index: 100;
 }
 
 .memberContParticles {
