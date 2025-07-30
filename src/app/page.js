@@ -480,7 +480,7 @@ export default function Home() {
               
             </div>
           </div>
-            <h1 className="membersTitle font-bold w-[100%] mb-10">Meet Our Members</h1>
+            <h1 className="membersTitle font-bold w-[100%] mb-6 mt-6">Meet Our Members</h1>
             {loading ? (
               <div className="flex flex-col items-center justify-center gap-4">
                 <motion.div
