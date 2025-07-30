@@ -66,32 +66,19 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         return phoneNumber;
     };
 
-    const formatSocialUrl = (url, platform) => {
+    const formatSocialUrl = (url) => {
         if (!url) return null;
 
         // If URL already has http/https, return as is
         if (url.startsWith('http://') || url.startsWith('https://')) {
             return url;
+        } else {
+            return `https://${url}`;
         }
 
-        // Remove any leading slashes or @ symbols
-        const cleanUrl = url.replace(/^[\/@]+/, '');
-
-        // Format based on platform
-        switch (platform) {
-            case 'linkedin':
-                return `https://linkedin.com/in/${cleanUrl}`;
-            case 'instagram':
-                return `https://instagram.com/${cleanUrl}`;
-            case 'facebook':
-                return `https://facebook.com/${cleanUrl}`;
-            case 'website':
-                return url.startsWith('www.') ? `https://${url}` : `https://www.${url}`;
-            default:
-                return url;
-        }
+        
     };
-    const websiteUrl = member.website ? formatSocialUrl(member.website, 'website') : '';
+    
     const memeberVCard = new VCard()
     memeberVCard
         .addName(member.lastName, member.firstName, '', '', '')
@@ -102,10 +89,10 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         {member.email && memeberVCard.addEmail(member.email)}
         {member.phone && memeberVCard.addPhoneNumber(member.phone, 'PREF;WORK')}
         // .addAddress('', '', '', '', '', '', '')
-        {member.website && memeberVCard.addURL(websiteUrl)}
-        {member.linkedin && memeberVCard.addSocial(formatSocialUrl(member.linkedin, 'linkedin'), 'LinkedIn', '')}
-        {member.instagram && memeberVCard.addSocial(formatSocialUrl(member.instagram, 'instagram'), 'Instagram', '')}
-        {member.facebook && memeberVCard.addSocial(formatSocialUrl(member.facebook, 'facebook'), 'Facebook', '')}
+        {member.website && memeberVCard.addURL(member.website)}
+        {member.linkedin && memeberVCard.addSocial(member.linkedin, 'LinkedIn', '')}
+        {member.instagram && memeberVCard.addSocial(member.instagram, 'Instagram', '')}
+        {member.facebook && memeberVCard.addSocial(member.facebook, 'Facebook', '')}
 
     const downloadVCard = () => {
         try {
@@ -209,22 +196,22 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                         {member.phone && formatPhoneNumber(member.phone) && <div className="text-md text-[#ffffff] whitespace-nowrap">{formatPhoneNumber(member.phone)}</div>}
                         <div className="flex flex-row flex-wrap justify-end items-end text-left w-full h-auto text-sm gap-2">
                             {member.linkedin && (
-                                <a href={formatSocialUrl(member.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" >
+                                <a href={formatSocialUrl(member.linkedin)} target="_blank" rel="noopener noreferrer" >
                                     <FontAwesomeIcon icon={faLinkedin} size="lg" className="text-[#ffffff]" />
                                 </a>
                             )}
                             {member.instagram && (
-                                <a href={formatSocialUrl(member.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" >
+                                <a href={formatSocialUrl(member.instagram)} target="_blank" rel="noopener noreferrer" >
                                     <FontAwesomeIcon icon={faInstagram} size="lg" className="text-[#ffffff]" />
                                 </a>
                             )}
                             {member.facebook && (
-                                <a href={formatSocialUrl(member.facebook, 'facebook')} target="_blank" rel="noopener noreferrer" >
+                                <a href={formatSocialUrl(member.facebook)} target="_blank" rel="noopener noreferrer" >
                                     <FontAwesomeIcon icon={faFacebook} size="lg" className="text-[#ffffff]" />
                                 </a>
                             )}
                             {member.website && (
-                                <a href={formatSocialUrl(member.website, 'website')} target="_blank" rel="noopener noreferrer" className="text-[#ffffff]">
+                                <a href={formatSocialUrl(member.website)} target="_blank" rel="noopener noreferrer" className="text-[#ffffff]">
                                     Website
                                 </a>
                             )}

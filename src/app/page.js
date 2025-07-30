@@ -392,9 +392,8 @@ export default function Home() {
               <div className="footerCenter flex flex-col items-center justify-center w-1/3 gap-4">
                 <h3 className="text-xl font-semibold">Contact Us</h3>
                 <div className="flex flex-col items-center gap-2 text-[#441111]">
-                  <p>Email: info@gmail.com</p>
-                  <p>Phone: (555) 123-4567</p>
-                  <p>Location: Thornton, CO</p>
+                  <a href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Official BNI Website</a>
+                  <a href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Register to Visit</a>
                 </div>
               </div>
               <div className="footerRight flex flex-col items-end justify-center w-1/3 gap-4">
@@ -424,12 +423,22 @@ export default function Home() {
           <div className="heroContMobile">
             <div className="heroContBgMobile">
               <div className="flex flex-row items-center justify-between gap-4 w-[90%]">
-                <div className="heroButtonContainerMobile">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="heroButtonContainerMobile"
+                >
                   <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Register to Visit</Link>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                  
+                >
                   <Link href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Offical BNI Website</Link>
-                </div>
+                </motion.div>
               </div>
               <div className="flex flex-col items-center justify-center gap-2">
                 <motion.div 
@@ -449,7 +458,12 @@ export default function Home() {
                   
               </div>
              
-              <div className="flex flex-col items-center justify-center gap-2">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="flex flex-col items-center justify-center gap-2"
+              >
                 <h3>Scroll to see our members</h3>
                 <motion.div
                   initial={{ y: 0 }}
@@ -462,7 +476,7 @@ export default function Home() {
                 >
                   <FaArrowDown />
                 </motion.div>
-              </div>
+              </motion.div>
               
             </div>
           </div>
@@ -491,6 +505,17 @@ export default function Home() {
                 
               </>
             )}
+            <div className="flex flex-row items-center justify-center w-full gap-10 max-w-7xl mx-auto px-6 mt-8 mb-8 pt-8 border-t border-gray-700">
+              <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-[#441111] text-sm">BNI 360 Impact</Link>
+              <a
+                href="https://servaldesigns.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#441111] hover:text-white transition-colors text-sm"
+              >
+                Powered by Serval Designs
+              </a>
+            </div>
           </div>
       </motion.div>
     </AnimatePresence>

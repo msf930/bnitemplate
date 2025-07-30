@@ -39,12 +39,11 @@
     justify-content: space-between;
     width: calc(100% - 40px);
     height: calc(100% - 40px);
-    padding: 30px 0;
+    padding: 50px 0;
     z-index: 10;
     background-color: white;
     border-radius: 20px;
-    pointer-events: none;
-
+    box-shadow: 10px 10px 14px rgba(0, 0, 0, 0.12);
   }
 
   .heroButtonMobile {
@@ -56,6 +55,7 @@
     background-color: #e46e72;
     width: 200px;
     border-radius: 10px;
+    z-index: 100;
   }
 
   .heroImageMobile {
@@ -63,7 +63,7 @@
     width: 80vw;
     height: 30vh;
     z-index: 10;
-    background-color: white;
+    /* background-color: white; */
     border-radius: 10px;
     pointer-events: none;
   }
