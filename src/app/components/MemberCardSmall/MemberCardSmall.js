@@ -1,10 +1,9 @@
 
 import Image from "next/image";
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import LiquidGlass from 'liquid-glass-react'
 import VCard from 'vcard-creator'
 import { IoMdDownload } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa";

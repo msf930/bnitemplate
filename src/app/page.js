@@ -8,15 +8,13 @@ import { useRive } from 'rive-react';
 import LiquidGlass from 'liquid-glass-react'
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
-
-import { SanityDocument } from "next-sanity";
-
 import { client } from "../sanity/lib/client";
-// import MemberCard from "./components/MemberCard";
+
 import Link from "next/link";
 import Particles from "react-tsparticles";
 import { FaArrowDown } from "react-icons/fa";
 import { GoThumbsup } from "react-icons/go";
+import { IoMdDownload } from "react-icons/io";
 import { loadTrianglesPreset } from "tsparticles-preset-triangles";
 
 import MemberCardSmall from "./components/MemberCardSmall/MemberCardSmall.js";
@@ -489,7 +487,12 @@ export default function Home() {
 
             </div>
           </div>
-          <h1 className="membersTitle font-bold w-[100%] mb-6 mt-6">Meet Our Members</h1>
+          <div className="flex flex-col items-center justify-center w-[100%] text-center mb-6 mt-6">
+            <h1 className="text-[2rem] text-center text-white font-bold w-[100%] ">Meet Our Members</h1>
+            <div className="flex flex-row items-center justify-center gap-2">
+              <p className="text-lg text-white">Download</p> <IoMdDownload className="text-lg text-white" /> <p className="text-lg text-white">to Add to Your Contacts</p>
+            </div>
+          </div>
           {loading ? (
             <div className="flex flex-col items-center justify-center gap-4">
               <motion.div
