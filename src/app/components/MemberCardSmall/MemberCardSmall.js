@@ -8,6 +8,8 @@ import LiquidGlass from 'liquid-glass-react'
 import VCard from 'vcard-creator'
 import { IoMdDownload } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa";
+import { RiExternalLinkLine } from "react-icons/ri";
+
 
 import styles from './stlyes.module.css'
 
@@ -255,7 +257,7 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                         <p>Download</p> <IoMdDownload />
                     </button>
                 </div>
-                <div className="flex flex-col pt-2 items-end justify-between gap-1 text-left w-full h-full">
+                <div className="flex flex-col pt-2 items-end justify-between gap-3 text-left w-full h-full mt-2">
 
                     <div className="flex flex-row justify-start items-start text-left w-full h-full text-sm">
                         {member.email && (
@@ -304,8 +306,8 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                                 </a>
                             )}
                             {member.website && (
-                                <a href={formatSocialUrl(member.website)} target="_blank" rel="noopener noreferrer" className="text-[#ffffff]">
-                                    Website
+                                <a href={formatSocialUrl(member.website)} target="_blank" rel="noopener noreferrer" className="text-[#ffffff] flex flex-row items-center gap-1">
+                                    Website <RiExternalLinkLine />
                                 </a>
                             )}
 
