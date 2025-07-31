@@ -42,7 +42,6 @@ export default function Home() {
   useEffect(() => {
     client.fetch(MEMBERS_QUERY).then((data) => {
       setMembers(data);
-      console.log("Fetched members:", data);
       setLoading(false);
     });
   }, []);
@@ -350,7 +349,7 @@ export default function Home() {
             </div>
           </div>
           <div id="members" className="flex flex-col items-center justify-center w-[100%] memberSection text-center">
-            <h1 className="membersTitle font-bold w-[100%] mb-10">Meet Our Members</h1>
+            <h1 className="membersTitle font-bold w-[100%] mb-10 mt-10">Meet Our Members</h1>
             {loading ? (
               <div className="flex flex-col items-center justify-center gap-4">
                 <motion.div

@@ -7,6 +7,7 @@ import { faLinkedin, faInstagram, faFacebook } from '@fortawesome/free-brands-sv
 import LiquidGlass from 'liquid-glass-react'
 import VCard from 'vcard-creator'
 import { IoMdDownload } from "react-icons/io";
+import { FaRegCopy } from "react-icons/fa";
 
 import styles from './stlyes.module.css'
 
@@ -46,6 +47,27 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         );
     }
 
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+    };
+
+    const handleMouseLeave = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        // card.style.setProperty('--mouse-x', '50%');
+        // card.style.setProperty('--mouse-y', '50%');
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+    };
+
     const formatPhoneNumber = (phoneNumber) => {
         if (!phoneNumber) return null;
 
@@ -76,20 +98,20 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
             return `https://${url}`;
         }
 
-        
+
     };
-    
+
     const createVCardWithImage = async () => {
         const vCard = new VCard();
         vCard.addName(member.lastName, member.firstName, '', '', '');
-        
+
         if (member.image) {
             const base64Image = await getImageAsBase64(member.image.asset.url);
             if (base64Image) {
                 vCard.addPhoto(base64Image, 'JPEG');
             }
         }
-        
+
         if (member.company) vCard.addCompany(member.company);
         if (member.position) vCard.addJobtitle(member.position);
         if (member.email) vCard.addEmail(member.email);
@@ -98,7 +120,7 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         if (member.linkedin) vCard.addSocial(formatSocialUrl(member.linkedin), 'LinkedIn', '');
         if (member.instagram) vCard.addSocial(formatSocialUrl(member.instagram), 'Instagram', '');
         if (member.facebook) vCard.addSocial(formatSocialUrl(member.facebook), 'Facebook', '');
-        
+
         return vCard;
     };
 
@@ -107,26 +129,43 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
             // Generate the vCard content with image
             const vCard = await createVCardWithImage();
             const vCardContent = vCard.toString();
-            
+
             // Create a blob with the vCard content
             const blob = new Blob([vCardContent], { type: 'text/vcard' });
-            
+
             // Create a download link
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
             link.download = `${member.firstName}_${member.lastName}.vcf`;
-            
+
             // Trigger the download
             document.body.appendChild(link);
             link.click();
-            
+
             // Clean up
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error downloading vCard:', error);
             alert('Error downloading contact information. Please try again.');
+        }
+    };
+
+    const copyToClipboard = async (text) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            // Optional: Show a success message or toast
+            console.log('Email copied to clipboard!');
+        } catch (error) {
+            console.error('Failed to copy to clipboard:', error);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
         }
     };
 
@@ -150,7 +189,7 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
     return (
 
         <motion.div
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ ease: "easeIn", duration: 0.2 }}
             // transition={{ ease: "easeIn", duration: 0.2, delay: index * 0.1 }}
@@ -163,8 +202,13 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         >
 
 
-            <div className={styles.memberCard}>
-                <div className="flex flex-row items-center w-full gap-6 rounded-[32px]">
+            <div 
+                className={styles.memberCard}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+            >
+                
+                <div className="flex flex-row items-center w-full gap-6 mt-2">
 
                     <div>
                         {member?.image?.asset?.url ? (
@@ -189,7 +233,7 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                             </div>
                         )}
                     </div>
-                    <div className="grid grid-rows-2 items-center justify-start gap-1 w-full ">
+                    <div className="grid grid-rows-[auto, auto] items-center justify-start gap-1 w-full ">
                         <div className="flex flex-row items-start justify-start gap-2 text-left">
                             <div className="font-bold text-xl text-left text-[#ffffff]">{member.firstName || 'N/A'}</div>
                             <div className="font-bold text-xl text-left text-[#ffffff]">{member.lastName || 'N/A'}</div>
@@ -203,30 +247,39 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
 
 
                     </div>
-                    <button 
-                                onClick={downloadVCard}
-                                className={styles.downloadButton}
-                                title="Download Contact"
-                            >
-                                <IoMdDownload />
-                            </button>
+                    <button
+                        onClick={downloadVCard}
+                        className={styles.downloadButton}
+                        title="Download Contact"
+                    >
+                        <p>Download</p> <IoMdDownload />
+                    </button>
                 </div>
                 <div className="flex flex-col pt-2 items-end justify-between gap-1 text-left w-full h-full">
 
-                    <div className="flex flex-col justify-end items-start text-left w-full h-full text-sm">
+                    <div className="flex flex-row justify-start items-start text-left w-full h-full text-sm">
                         {member.email && (
-                            <a 
-                                href={`mailto:${member.email}`}
-                                className="text-md text-[#ffffff] hover:text-gray-300 transition-colors duration-200"
-                                title="Send email"
-                            >
-                                {member.email}
-                            </a>
+                            <div className="flex flex-row justify-start items-center text-left w-full h-full text-sm">
+                                <a
+                                    href={`mailto:${member.email}`}
+                                    className="text-md text-[#ffffff] hover:text-gray-300 transition-colors duration-200"
+                                    title="Send email"
+                                >
+                                    {member.email}
+                                </a>
+                                <div className="block">
+                                    <FaRegCopy 
+                                        className="text-[#ffffff] ml-2 cursor-pointer hover:text-gray-300 transition-colors duration-200" 
+                                        onClick={() => copyToClipboard(member.email)}
+                                        title="Copy email"
+                                    />
+                                </div>
+                            </div>
                         )}
                     </div>
                     <div className="flex flex-row justify-between items-center text-left w-full h-full text-sm">
                         {member.phone && formatPhoneNumber(member.phone) && (
-                            <a 
+                            <a
                                 href={`tel:+1${member.phone.replace(/\D/g, '')}`}
                                 className="text-md text-[#ffffff] whitespace-nowrap hover:text-gray-300 transition-colors duration-200"
                                 title="Call"
@@ -255,10 +308,12 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                                     Website
                                 </a>
                             )}
-                            
+
                         </div>
                     </div>
                 </div>
+                <div className={styles.rimLight}></div>
+                <div className={styles.cardBGLayer}></div>
             </div>
 
 
