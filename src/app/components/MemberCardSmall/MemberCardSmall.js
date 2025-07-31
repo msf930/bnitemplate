@@ -79,25 +79,34 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         
     };
     
-    const memeberVCard = new VCard()
-    memeberVCard
-        .addName(member.lastName, member.firstName, '', '', '')
-        // Add work data
-        {member.company && memeberVCard.addCompany(member.company)}
-        {member.position && memeberVCard.addJobtitle(member.position)}
-        // .addRole('')
-        {member.email && memeberVCard.addEmail(member.email)}
-        {member.phone && memeberVCard.addPhoneNumber(member.phone, 'PREF;WORK')}
-        // .addAddress('', '', '', '', '', '', '')
-        {member.website && memeberVCard.addURL(member.website)}
-        {member.linkedin && memeberVCard.addSocial(member.linkedin, 'LinkedIn', '')}
-        {member.instagram && memeberVCard.addSocial(member.instagram, 'Instagram', '')}
-        {member.facebook && memeberVCard.addSocial(member.facebook, 'Facebook', '')}
+    const createVCardWithImage = async () => {
+        const vCard = new VCard();
+        vCard.addName(member.lastName, member.firstName, '', '', '');
+        
+        if (member.image) {
+            const base64Image = await getImageAsBase64(member.image.asset.url);
+            if (base64Image) {
+                vCard.addPhoto(base64Image, 'JPEG');
+            }
+        }
+        
+        if (member.company) vCard.addCompany(member.company);
+        if (member.position) vCard.addJobtitle(member.position);
+        if (member.email) vCard.addEmail(member.email);
+        if (member.phone) vCard.addPhoneNumber(member.phone, 'PREF;WORK');
+        if (member.website) vCard.addURL(formatSocialUrl(member.website));
+        if (member.linkedin) vCard.addSocial(formatSocialUrl(member.linkedin), 'LinkedIn', '');
+        if (member.instagram) vCard.addSocial(formatSocialUrl(member.instagram), 'Instagram', '');
+        if (member.facebook) vCard.addSocial(formatSocialUrl(member.facebook), 'Facebook', '');
+        
+        return vCard;
+    };
 
-    const downloadVCard = () => {
+    const downloadVCard = async () => {
         try {
-            // Generate the vCard content
-            const vCardContent = memeberVCard.toString();
+            // Generate the vCard content with image
+            const vCard = await createVCardWithImage();
+            const vCardContent = vCard.toString();
             
             // Create a blob with the vCard content
             const blob = new Blob([vCardContent], { type: 'text/vcard' });
@@ -118,6 +127,22 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
         } catch (error) {
             console.error('Error downloading vCard:', error);
             alert('Error downloading contact information. Please try again.');
+        }
+    };
+
+    const getImageAsBase64 = async (imageUrl) => {
+        try {
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]); // Remove data:image/jpeg;base64, prefix
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        } catch (error) {
+            console.error('Error fetching image:', error);
+            return null;
         }
     };
 

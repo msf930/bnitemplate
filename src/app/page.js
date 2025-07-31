@@ -36,11 +36,8 @@ export default function Home() {
 
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const handleCardExpand = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  
 
   useEffect(() => {
     client.fetch(MEMBERS_QUERY).then((data) => {
