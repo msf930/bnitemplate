@@ -13,7 +13,7 @@ import { RiExternalLinkLine } from "react-icons/ri";
 
 import styles from './stlyes.module.css'
 
-export default function MemberCardSmall({ member, index, isExpanded, onExpand }) {
+export default function MemberCardSmall({ member, onCopied }) {
     // Handle null/undefined member data
     if (!member) {
         return (
@@ -157,10 +157,11 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
     const copyToClipboard = async (text) => {
         try {
             await navigator.clipboard.writeText(text);
-            // Optional: Show a success message or toast
-            console.log('Email copied to clipboard!');
+            // Call the isCopied callback to show modal
+            if (onCopied) {
+                onCopied(true);
+            }
         } catch (error) {
-            console.error('Failed to copy to clipboard:', error);
             // Fallback for older browsers
             const textArea = document.createElement('textarea');
             textArea.value = text;
@@ -168,6 +169,11 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
+            
+            // Call the isCopied callback even for fallback
+            if (onCopied) {
+                onCopied(true);
+            }
         }
     };
 

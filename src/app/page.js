@@ -16,6 +16,7 @@ import { client } from "../sanity/lib/client";
 import Link from "next/link";
 import Particles from "react-tsparticles";
 import { FaArrowDown } from "react-icons/fa";
+import { GoThumbsup } from "react-icons/go";
 import { loadTrianglesPreset } from "tsparticles-preset-triangles";
 
 import MemberCardSmall from "./components/MemberCardSmall/MemberCardSmall.js";
@@ -37,7 +38,7 @@ export default function Home() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
+
 
   useEffect(() => {
     client.fetch(MEMBERS_QUERY).then((data) => {
@@ -51,13 +52,14 @@ export default function Home() {
   const [isFirefox, setIsFirefox] = useState(false);
   const [isSafari, setIsSafari] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const [showCopiedModal, setShowCopiedModal] = useState(false);
 
   useEffect(() => {
     // Detect browsers
     const userAgent = navigator.userAgent.toLowerCase();
     const isFirefoxBrowser = userAgent.includes('firefox');
     const isSafariBrowser = userAgent.includes('safari') && !userAgent.includes('chrome');
-    
+
     setIsFirefox(isFirefoxBrowser);
     setIsSafari(isSafariBrowser);
   }, []);
@@ -65,15 +67,15 @@ export default function Home() {
   useEffect(() => {
     // Handle window resize with debouncing
     let resizeTimeout;
-    
+
     const handleResize = () => {
       setIsResizing(true);
-      
+
       // Clear existing timeout
       if (resizeTimeout) {
         clearTimeout(resizeTimeout);
       }
-      
+
       // Set new timeout
       resizeTimeout = setTimeout(() => {
         setIsResizing(false);
@@ -81,7 +83,7 @@ export default function Home() {
     };
 
     window.addEventListener('resize', handleResize);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       if (resizeTimeout) {
@@ -113,7 +115,7 @@ export default function Home() {
     await loadTrianglesPreset(Engine);
   };
 
- 
+
   const particlesOptions = {
     preset: "triangles",
     background: { color: "transparent" },
@@ -176,6 +178,15 @@ export default function Home() {
       move: { enable: true, speed: 0.1 }, // Very slow movement
     },
     style: { position: 'absolute', top: 0, left: 0, zIndex: 1000, pointerEvents: 'none' },
+  };
+
+  const handleCopied = (copied) => {
+    if (copied) {
+      setShowCopiedModal(true);
+      setTimeout(() => {
+        setShowCopiedModal(false);
+      }, 2000); // Hide modal after 2 seconds
+    }
   };
 
 
@@ -279,7 +290,7 @@ export default function Home() {
                   <div className="aboutHandshakeContainer">
                     <Image src="/handshake.jpg" alt="logo" fill objectFit="cover" className="aboutHandshake" />
                   </div>
-                {isFirefox || isSafari ? <div className="aboutMemberBoxFirefox " style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 300 }}>
+                  {isFirefox || isSafari ? <div className="aboutMemberBoxFirefox " style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 300 }}>
                     <div className="flex flex-row items-center justify-center gap-2">
                       <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
                       <p className="aboutMemberText">{members.length}<br /></p>
@@ -287,26 +298,26 @@ export default function Home() {
 
                     <p className="aboutMemberText">members</p>
                   </div> :
-                   <LiquidGlass
-                    displacementScale={10}
-                    blurAmount={0.01}
-                    saturation={100}
-                    aberrationIntensity={1}
-                    elasticity={0.05}
-                    cornerRadius={50}
-                    mode="standard"
-                    overLight={false}
-                    style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 30 }}
-                  >
-                    <div className="aboutMemberBox ">
-                      <div className="flex flex-row items-center justify-center gap-2">
-                        <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
-                        <p className="aboutMemberText">{members.length}<br /></p>
-                      </div>
+                    <LiquidGlass
+                      displacementScale={10}
+                      blurAmount={0.01}
+                      saturation={100}
+                      aberrationIntensity={1}
+                      elasticity={0.05}
+                      cornerRadius={50}
+                      mode="standard"
+                      overLight={false}
+                      style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 30 }}
+                    >
+                      <div className="aboutMemberBox ">
+                        <div className="flex flex-row items-center justify-center gap-2">
+                          <Image src="/user.png" alt="logo" width={30} height={30} className="aboutMemberIcon" />
+                          <p className="aboutMemberText">{members.length}<br /></p>
+                        </div>
 
-                      <p className="aboutMemberText">members</p>
-                    </div>
-                  </LiquidGlass>}
+                        <p className="aboutMemberText">members</p>
+                      </div>
+                    </LiquidGlass>}
                 </div>
               </div>
               <div className="aboutRight flex flex-col items-center justify-center text-left w-[40%] gap-4">
@@ -320,7 +331,7 @@ export default function Home() {
                         href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284"
                         target="_blank"
                         rel="noopener noreferrer"
-                        >
+                      >
                         Schedule A Visit
                       </Link>
                     </div>
@@ -367,6 +378,8 @@ export default function Home() {
                       key={index} // Use member._id as key instead of index
                       member={member}
                       index={index}
+                      isCopied={showCopiedModal}
+                      onCopied={handleCopied}
                     />
                   ))}
 
@@ -413,13 +426,13 @@ export default function Home() {
               </a>
             </div>
           </div>
-          
+
         </div>
         <div className="flex flex-col items-center justify-center w-[100%] memberSectionMobile text-center">
           <div className="heroContMobile">
             <div className="heroContBgMobile">
               <div className="flex flex-row items-center justify-between gap-4 w-[90%]">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
@@ -427,34 +440,34 @@ export default function Home() {
                 >
                   <Link href="https://bnicolorado.com/en-US/visitorregistration?chapterId=43284" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Register to Visit</Link>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
-                  
+
                 >
                   <Link href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Offical BNI Website</Link>
                 </motion.div>
               </div>
               <div className="flex flex-col items-center justify-center gap-2">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
                   className="heroImageMobile"
                 >
-                  <Image src="/360logoRed.png" alt="logo" fill objectFit="contain"  />
+                  <Image src="/360logoRed.png" alt="logo" fill objectFit="contain" />
                 </motion.div>
-                  <motion.h3 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="heroTitleTextMobile"
-                  >Connecting Professionals<br />Creating Opportunities</motion.h3>
-                  
+                <motion.h3
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="heroTitleTextMobile"
+                >Connecting Professionals<br />Creating Opportunities</motion.h3>
+
               </div>
-             
-              <motion.div 
+
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -464,56 +477,83 @@ export default function Home() {
                 <motion.div
                   initial={{ y: 0 }}
                   animate={{ y: [0, 10, 0] }}
-                  transition={{ 
-                    duration: 1.5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }}
                 >
                   <FaArrowDown />
                 </motion.div>
               </motion.div>
-              
-            </div>
-          </div>
-            <h1 className="membersTitle font-bold w-[100%] mb-6 mt-6">Meet Our Members</h1>
-            {loading ? (
-              <div className="flex flex-col items-center justify-center gap-4">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-12 h-12 border-4 border-gray-300 border-t-[#CF2030] rounded-full"
-                />
-                <p className="text-gray-600 text-lg">Loading members...</p>
-              </div>
-            ) : (
-              <>
-                <div className="memberGrid">
-                  {members?.map((member, index) => (
-                    <MemberCardSmall
-                      key={index} // Use member._id as key instead of index
-                      member={member}
-                      index={index}
-                    />
-                  ))}
 
-                </div>
-                
-              </>
-            )}
-            <div className="flex flex-row items-center justify-center w-full gap-10 max-w-7xl mx-auto px-6 mt-8 mb-8 pt-8 border-t border-gray-700">
-              <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-[#441111] text-sm">BNI 360 Impact</Link>
-              <a
-                href="https://servaldesigns.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#441111] hover:text-white transition-colors text-sm"
-              >
-                Powered by Serval Designs
-              </a>
             </div>
           </div>
+          <h1 className="membersTitle font-bold w-[100%] mb-6 mt-6">Meet Our Members</h1>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center gap-4">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-12 h-12 border-4 border-gray-300 border-t-[#CF2030] rounded-full"
+              />
+              <p className="text-gray-600 text-lg">Loading members...</p>
+            </div>
+          ) : (
+            <>
+              <div className="memberGrid">
+                {members?.map((member, index) => (
+                  <MemberCardSmall
+                    key={index} // Use member._id as key instead of index
+                    member={member}
+                    index={index}
+                    isCopied={showCopiedModal}
+                    onCopied={handleCopied}
+                  />
+                ))}
+
+              </div>
+
+            </>
+          )}
+          <div className="flex flex-row items-center justify-center w-full gap-10 max-w-7xl mx-auto px-6 mt-8 mb-8 pt-8 border-t border-gray-700">
+            <Link href="/studio" target="_blank" rel="noopener noreferrer" className="text-[#441111] text-sm">BNI 360 Impact</Link>
+            <a
+              href="https://servaldesigns.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#441111] hover:text-white transition-colors text-sm"
+            >
+              Powered by Serval Designs
+            </a>
+          </div>
+        </div>
+        <AnimatePresence>
+          {showCopiedModal && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 100 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 100 }}
+              className="fixed bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-white rounded-lg shadow-lg px-6 py-4 border border-gray-200"
+            >
+              <div className="flex items-center gap-3">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 360 }}
+                  exit={{ opacity: 0, scale: 0.8, rotate: 360 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  <GoThumbsup />
+                </motion.div>
+                <span className="text-gray-800 font-medium">Copied Email!</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </AnimatePresence>
+
+
+
   );
 }
