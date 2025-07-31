@@ -165,7 +165,7 @@ export default function MemberCardSmall({ member, index, isExpanded, onExpand })
                         )}
                     </div>
                     <div className="grid grid-rows-2 items-center justify-start gap-1 w-full ">
-                        <div className="flex flex-row items-center justify-start gap-2 text-left">
+                        <div className="flex flex-row items-start justify-start gap-2 text-left">
                             <div className="font-bold text-xl text-left text-[#ffffff]">{member.firstName || 'N/A'}</div>
                             <div className="font-bold text-xl text-left text-[#ffffff]">{member.lastName || 'N/A'}</div>
                         </div>
