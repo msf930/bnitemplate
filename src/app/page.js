@@ -286,7 +286,7 @@ export default function Home() {
               <div className="aboutLeft relative flex items-center justify-center w-1/2 ">
                 <div className="aboutRedBox">
                   <div className="aboutHandshakeContainer">
-                    <Image src="/handshake.jpg" alt="logo" fill objectFit="cover" className="aboutHandshake" />
+                    <Image src="/handshake2.jpg" alt="logo" fill objectFit="cover" className="aboutHandshake" />
                   </div>
                   {isFirefox || isSafari ? <div className="aboutMemberBoxFirefox " style={{ position: 'absolute', top: '80%', left: '70%', transform: 'translate(-50%, -50%)', zIndex: 300 }}>
                     <div className="flex flex-row items-center justify-center gap-2">
@@ -358,7 +358,7 @@ export default function Home() {
             </div>
           </div>
           <div id="members" className="flex flex-col items-center justify-center w-[100%] memberSection text-center">
-            <h1 className="membersTitle font-bold w-[100%] mb-10 mt-10">Meet Our Members</h1>
+            <h1 className="membersTitle font-bold w-[100%] mb-10 mt-10">Our Members</h1>
             {loading ? (
               <div className="flex flex-col items-center justify-center gap-4">
                 <motion.div
@@ -488,9 +488,9 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-[100%] text-center mb-6 mt-6">
-            <h1 className="text-[2rem] text-center text-white font-bold w-[100%] ">Meet Our Members</h1>
+            <h1 className="text-[2rem] text-center text-white font-bold w-[100%]">Our Members</h1>
             <div className="flex flex-row items-center justify-center gap-2">
-              <p className="text-lg text-white">Download</p> <IoMdDownload className="text-lg text-white" /> <p className="text-lg text-white">to Add to Your Contacts</p>
+              {/* <p className="text-lg text-white">Download</p> <IoMdDownload className="text-lg text-white" /> <p className="text-lg text-white">to Add to Your Contacts</p> */}
             </div>
           </div>
           {loading ? (

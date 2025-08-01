@@ -240,15 +240,16 @@ export default function MemberCardSmall({ member, onCopied }) {
                             </div>
                         )}
                     </div>
-                    <div className="grid grid-rows-[auto, auto] items-center justify-start gap-1 w-full ">
-                        <div className="flex flex-row items-start justify-start gap-2 text-left">
-                            <div className="font-bold text-xl text-left text-[#ffffff]">{member.firstName || 'N/A'}</div>
-                            <div className="font-bold text-xl text-left text-[#ffffff]">{member.lastName || 'N/A'}</div>
+                    <div className="grid grid-rows-[auto, auto] items-center justify-center gap-1 w-full mr-6">
+                        <div className={`flex items-center justify-center  text-left ${member.lastName.length > 10 ? 'flex-col' : 'flex-row gap-2'}`}>
+                            <div className="font-bold text-xl text-left text-[#ffffff] whitespace-nowrap">{member.firstName || 'N/A'}</div>
+                            <div className="font-bold text-xl text-left text-[#ffffff] whitespace-nowrap">{member.lastName || 'N/A'}</div>
                         </div>
 
-                        <div className="flex flex-col text-left">
-                            {member.company && <div className="text-sm font-bold text-[#ffffff]">{member.company}</div>}
-                            {member.position && <div className="text-sm font-bold text-[#ffffff]">{member.position}</div>}
+                        <div className="flex flex-col text-left gap-1">
+                            {member.company && <div className="text-sm text-center font-bold text-[#ffffff]">{member.company}</div>}
+                            
+                            {member.position && <div className="text-[12px] text-center font-medium text-[#ffffff]">{member.position}</div>}
 
                         </div>
 
@@ -259,7 +260,7 @@ export default function MemberCardSmall({ member, onCopied }) {
                         className={styles.downloadButton}
                         title="Download Contact"
                     >
-                        <p>Download</p> <IoMdDownload />
+                        <p>Import Contact</p> <IoMdDownload />
                     </button>
                 </div>
                 <div className="flex flex-col pt-2 items-end justify-between gap-3 text-left w-full h-full mt-2">
