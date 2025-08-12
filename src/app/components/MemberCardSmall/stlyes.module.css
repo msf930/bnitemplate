@@ -72,7 +72,7 @@
 }
 
 .memberCard:hover .rimLight {
-  opacity: 1;
+  opacity: 0;
 }
 .cardBGLayer {
   position: absolute;

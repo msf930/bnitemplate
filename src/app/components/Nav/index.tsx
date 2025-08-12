@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-export default function Nav() {
+export default function Nav({logo, officialURL}) {
     const [activeSection, setActiveSection] = useState('home');
     const lastScrollY = useRef(0);
     const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
@@ -56,7 +56,7 @@ export default function Nav() {
         >
             <div className="grid grid-cols-3 justify-center items-center px-10 w-full h-[100px]">
                 
-                    <Image src="/360logoRed.png" alt="logo" width={100} height={100} />
+                    <Image src={logo ? logo.asset.url : '/BNILogoR.png'} alt="logo" width={100} height={100} />
                 
                 <div className="flex justify-center items-center gap-4">
                     <button
@@ -74,7 +74,7 @@ export default function Nav() {
                 </div>
                 <div className="flex justify-end items-center">
                     <Link 
-                    href="https://bnicolorado.com/en-US/chapterdetail?chapterId=iHsLsBdjpHuuIczj9WemdA%3D%3D&name=BNI+BNI+360+Impact" 
+                    href={officialURL ? officialURL : 'https://bnicolorado.com/en-US/advancedchaptersearch'} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="cursor-pointer text-[#CF2030] flex justify-center items-center group">

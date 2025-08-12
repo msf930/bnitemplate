@@ -41,10 +41,6 @@ export const memberType = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'bio',
-      type: 'text',
-    }),
-    defineField({
       name: 'linkedin',
       type: 'string',
     }), 

@@ -1,4 +1,4 @@
-
+"use client";
 import Image from "next/image";
 
 import { motion } from "motion/react";
@@ -16,12 +16,8 @@ export default function MemberCardSmall({ member, onCopied }) {
     // Handle null/undefined member data
     if (!member) {
         return (
-            <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ ease: "easeIn", duration: 0.2 }}
-                exit={{ opacity: 0, y: -100, transition: { duration: 0.4 } }}
-                viewport={{ once: true }}
+            <div
+                
                 className={styles.memberCardContainer}
             >
                 <div className={`${styles.memberCard} flex flex-col items-center p-6 cursor-pointer transition-all duration-300 max-h-[180px] overflow-hidden`}>
@@ -29,8 +25,8 @@ export default function MemberCardSmall({ member, onCopied }) {
                         <div className="flex-shrink-0">
                             <div className="w-[120px] h-[120px] relative bg-white rounded-full flex items-center justify-center text-gray-500">
                                 <Image
-                                    src="/360logoRed.png"
-                                    alt="BNI 360 Logo"
+                                    src="/BNILogoR.png"
+                                    alt="BNI Logo"
                                     fill
                                     style={{ objectFit: 'contain' }}
                                     className="rounded-full"
@@ -44,7 +40,7 @@ export default function MemberCardSmall({ member, onCopied }) {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         );
     }
 
@@ -195,13 +191,8 @@ export default function MemberCardSmall({ member, onCopied }) {
 
     return (
 
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ ease: "easeIn", duration: 0.2 }}
-            // transition={{ ease: "easeIn", duration: 0.2, delay: index * 0.1 }}
-            exit={{ opacity: 0, y: -100, transition: { duration: 0.4 } }}
-            viewport={{ once: true }}
+        <div
+            
 
 
             className={styles.memberCardContainer}
@@ -211,8 +202,7 @@ export default function MemberCardSmall({ member, onCopied }) {
 
             <div 
                 className={styles.memberCard}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                
             >
                 
                 <div className="flex flex-row items-center w-full gap-6 mt-2">
@@ -231,10 +221,10 @@ export default function MemberCardSmall({ member, onCopied }) {
                         ) : (
                             <div className="w-[7vw] h-[7vw] min-w-[100px] min-h-[100px] relative bg-white rounded-4xl flex items-center justify-center text-gray-500">
                                 <Image
-                                    src="/360logoRed.png"
-                                    alt="BNI 360 Logo"
+                                    src="/BNILogoR.png"
+                                    alt="BNI Logo"
                                     fill
-                                    style={{ objectFit: 'contain' }}
+                                    style={{ objectFit: 'contain', padding: '10px' }}
                                     className="rounded-4xl"
                                 />
                             </div>
@@ -325,7 +315,7 @@ export default function MemberCardSmall({ member, onCopied }) {
             </div>
 
 
-        </motion.div>
+        </div>
 
     );
 } 

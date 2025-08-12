@@ -98,8 +98,8 @@
   /* background: radial-gradient(ellipse at 50% 100%, #CF203099 0%, white 70%); */
   background: #ffffff;
   width: calc(100% - 40px);
-  height: 130vh;
-  min-height: 1000px;
+  height: 80vh;
+  min-height: 80vh;
   max-height: 1400px;
   border-radius: 20px;
   position: relative;
@@ -126,20 +126,9 @@
   pointer-events: none;
 }
 
-.heroContParticles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 1;
-}
 
 .heroTitleText {
-  margin-top: 100px;
+  margin-top: 10px;
   font-size: 4rem;
   font-weight: 700;
   text-align: center;
@@ -428,4 +417,7 @@
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
+}
+.footerSection {
+  border-radius: 20px 20px 0 0;
 }
