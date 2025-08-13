@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BNI 360 Impact",
-  description: "Connecting professionals and creating opportunities through meaningful business relationships. Join BNI 360 Impact in Thornton, CO to grow your business through trusted referrals and lasting partnerships.",
+  title: "BNI Member List",
+  description: "Connecting professionals and creating opportunities through meaningful business relationships. Join BNI to grow your business through trusted referrals and lasting partnerships.",
 };
 
 export default function RootLayout({ children }) {
