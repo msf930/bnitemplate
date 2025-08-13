@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import { motion } from "motion/react";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import VCard from 'vcard-creator'
