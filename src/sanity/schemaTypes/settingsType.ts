@@ -31,10 +31,10 @@ export const settingsType = defineType({
       
     }),
     defineField({
-      name: 'visitURL',
-      title: 'Visitor Registration URL',
+      name: 'applyURL',
+      title: 'Application URL',
       type: 'url',
-      description: 'The URL for visitors to register to attend a meeting',
+      description: 'The URL for visitors to apply to join your chapter',
       
     }),
     defineField({

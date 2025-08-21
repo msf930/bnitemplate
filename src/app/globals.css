@@ -45,19 +45,36 @@
     border-radius: 20px;
     box-shadow: 10px 10px 14px rgba(0, 0, 0, 0.12);
   }
+  
 
+  .heroButtonMobileOfficial {
+    font-size: 14px;
+    font-weight: 400;
+    color: #CF2030;
+    text-align: center;
+    padding: 6px;
+    background-color: #ffffff;
+    width: auto;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 100;
+  }
   .heroButtonMobile {
     font-size: 14px;
     font-weight: 400;
     color: white;
     text-align: center;
-    padding: 6px;
+    padding: 10px;
     background-color: #e46e72;
     width: 200px;
     border-radius: 10px;
     z-index: 100;
   }
-
   .heroImageMobile {
     position: relative;
     width: 80vw;

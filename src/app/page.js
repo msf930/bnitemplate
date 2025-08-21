@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import Link from "next/link";
 import MemberCardSmall from "./components/MemberCardSmall/MemberCardSmall.js";
 import { client } from "../sanity/lib/client";
+import { RiExternalLinkLine } from "react-icons/ri";
 
 const MEMBERS_QUERY = `*[
   _type == "member"
@@ -10,7 +11,7 @@ const MEMBERS_QUERY = `*[
 
 const SETTINGS_QUERY = `*[
   _type == "settings"
-]{_id, chapterName, officialURL, visitURL, logo{asset->{url, alt}}}`;
+]{_id, chapterName, officialURL, applyURL, logo{asset->{url, alt}}}`;
 
 // Make this an async function to fetch data on the server
 export default async function Home() {
@@ -19,7 +20,7 @@ export default async function Home() {
   const settings = await client.fetch(SETTINGS_QUERY);
   const chapterName = settings[0]?.chapterName;
   const officialURL = settings[0]?.officialURL;
-  const visitURL = settings[0]?.visitURL;
+  const applyURL = settings[0]?.applyURL;
   const logo = settings[0]?.logo;
 
 
@@ -42,14 +43,14 @@ export default async function Home() {
           <p className="heroSubText">
             Expand your network with BNI {chapterName}<br />Grow your business through real relationships
           </p>
-          {visitURL ?
+          {applyURL ?
             <div className="heroButton">
               <Link
-                href={visitURL}
+                href={applyURL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit Our Chapter
+                Apply to Join
               </Link>
             </div> : null}
 
@@ -79,14 +80,14 @@ export default async function Home() {
               <h1 className="text-4xl font-bold w-[100%]">Why Join Our Chapter?</h1>
               <p className="text-lg font-light w-[100%]">Real connections. Tangible results.</p>
               <p className="text-lg w-[100%]">Whether you&apos;re a seasoned entrepreneur or just starting out, our network brings together professionals who are serious about growing their businesses through trust, referrals, and shared knowledge. With regular meetings, valuable resources, and a supportive community, you don&apos;t just meet people &mdash; you build lasting partnerships.</p>
-                {visitURL && <div className="aboutButtonContainer">
+                {applyURL && <div className="aboutButtonContainer">
                   <div className="aboutButtonFirefox">
                     <Link
-                      href={visitURL}
+                      href={applyURL}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Schedule A Visit
+                      Apply to Join
                     </Link>
                   </div>
                 </div>}
@@ -120,11 +121,11 @@ export default async function Home() {
               <Image src={logo ? logo.asset.url : '/BNILogoR.png'} alt="logo" width={120} height={120} className="filter brightness-0 invert" />
               <p className="text-[#441111] text-sm">Connecting professionals and creating opportunities through meaningful business relationships.</p>
             </div>
-            {(visitURL || officialURL) ? <div className="footerCenter flex flex-col items-center justify-center w-1/3 gap-4">
+            {(applyURL || officialURL) ? <div className="footerCenter flex flex-col items-center justify-center w-1/3 gap-4">
               <h3 className="text-xl font-semibold">Contact Us</h3>
               <div className="flex flex-col items-center gap-2 text-[#441111]">
+                {applyURL && <a href={applyURL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Apply to Join</a>}
                 {officialURL && <a href={officialURL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Official BNI Website</a>}
-                {visitURL && <a href={visitURL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Register to Visit</a>}
               </div>
             </div> : <div className="footerCenter flex flex-col items-center justify-center w-1/3 gap-4"></div>}
             <div className="footerRight flex flex-col items-end justify-center w-1/3 gap-4">
@@ -153,12 +154,10 @@ export default async function Home() {
       <div className="flex flex-col items-center justify-center w-[100%] memberSectionMobile text-center">
         <div className="heroContMobile">
           <div className="heroContBgMobile">
-            <div className="flex flex-row items-center justify-between gap-4 w-[90%]">
-              {visitURL && <div>
-                <Link href={visitURL} target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Register to Visit</Link>
-              </div>}
+            <div className="flex flex-row items-center justify-end gap-4 w-[90%]">
+              
               {officialURL && <div>
-                <Link href={officialURL} target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Official BNI Website</Link>
+                <Link href={officialURL} target="_blank" rel="noopener noreferrer" className="heroButtonMobileOfficial">Official BNI Website <RiExternalLinkLine /></Link>
               </div>}
             </div>
 
@@ -169,6 +168,9 @@ export default async function Home() {
               <h3 className="heroTitleTextMobile">
                 Connecting Professionals<br />Creating Opportunities
               </h3>
+              {applyURL && <div className="mt-10">
+                <Link href={applyURL} target="_blank" rel="noopener noreferrer" className="heroButtonMobile">Apply to Join</Link>
+              </div>}
             </div>
 
             <div className="flex flex-col items-center justify-center gap-2">
